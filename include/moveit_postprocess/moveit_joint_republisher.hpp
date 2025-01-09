@@ -6,10 +6,8 @@
 
 #include "moveit_postprocess/params.hpp"
 
-inline static constexpr float PI = 3.14159265358979323846;
-
-float deg2rad(float deg);
-float rad2deg(float rad);
+double deg2rad(double deg);
+double rad2deg(double rad);
 
 class MoveItJointRepublisher : public rclcpp::Node {
    private:
