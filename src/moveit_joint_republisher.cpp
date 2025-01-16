@@ -32,11 +32,12 @@ void MoveItJointRepublisher::rightArmCallback(const control_msgs::msg::JointTraj
         RCLCPP_ERROR(this->get_logger(), "Invalid number of joint positions");
         return;
     }
-    point.positions[1] = deg2rad(180.0 - rad2deg(point.positions[1]));
+    point.positions[0] = point.positions[0];
+    point.positions[1] = deg2rad(rad2deg(point.positions[1]) + 90.0);
     point.positions[2] = deg2rad(rad2deg(point.positions[2]) + 90.0);
     point.positions[3] = -point.positions[3];
-    point.positions[4] = deg2rad(rad2deg(point.positions[4]) + 90.0);
-    point.positions[5] = -point.positions[5];
+    point.positions[4] = deg2rad(-rad2deg(point.positions[4]) + 90.0);
+    point.positions[5] = deg2rad(rad2deg(point.positions[5]) + 90.0);
 
     right_arm_publisher_->publish(point);
 }
