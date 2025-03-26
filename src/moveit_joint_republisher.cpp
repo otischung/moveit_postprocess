@@ -27,7 +27,7 @@ void MoveItJointRepublisher::leftArmCallback(const control_msgs::msg::JointTraje
     point.positions[2] = deg2rad(rad2deg(point.positions[2]) + 90.0);
     point.positions[3] = point.positions[3];
     point.positions[4] = deg2rad(rad2deg(point.positions[4]) + 90.0);
-    point.positions[5] = deg2rad(90.0 - rad2deg(point.positions[5]));
+    point.positions[5] = deg2rad(rad2deg(point.positions[5]) + 90.0);
 
     left_arm_publisher_->publish(point);
 }
