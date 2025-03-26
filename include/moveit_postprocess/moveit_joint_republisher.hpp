@@ -6,8 +6,8 @@
 
 #include "moveit_postprocess/params.hpp"
 
-double deg2rad(double deg);
-double rad2deg(double rad);
+static inline double deg2rad(double deg);
+static inline double rad2deg(double rad);
 
 class MoveItJointRepublisher : public rclcpp::Node {
    private:
