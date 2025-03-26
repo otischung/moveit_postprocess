@@ -1,10 +1,10 @@
 #include "moveit_postprocess/moveit_joint_republisher.hpp"
 
-double deg2rad(double deg) {
+static inline double deg2rad(double deg) {
     return deg * PI / 180.0;
 }
 
-double rad2deg(double rad) {
+static inline double rad2deg(double rad) {
     return rad * 180.0 / PI;
 }
 
@@ -15,6 +15,12 @@ void MoveItJointRepublisher::leftArmCallback(const control_msgs::msg::JointTraje
     point.accelerations = msg->output.accelerations;
     point.effort = msg->output.effort;
     point.time_from_start = msg->output.time_from_start;
+
+    // Calibration for the left arm
+    if (point.positions.size() != 6) {
+        RCLCPP_ERROR(this->get_logger(), "Invalid number of left-joint positions");
+        return;
+    }
 
     left_arm_publisher_->publish(point);
 }
@@ -29,7 +35,7 @@ void MoveItJointRepublisher::rightArmCallback(const control_msgs::msg::JointTraj
 
     // Calibration for the right arm
     if (point.positions.size() != 6) {
-        RCLCPP_ERROR(this->get_logger(), "Invalid number of joint positions");
+        RCLCPP_ERROR(this->get_logger(), "Invalid number of right-joint positions");
         return;
     }
     point.positions[0] = point.positions[0];
